@@ -9,7 +9,13 @@ const OrderCard = (props) => {
   });
 
   const deleteOrder = () => {
-    console.log('hi')
+    const sendDeleteRequest = async () => {
+      const response = await fetch(`http://localhost:3001/api/v1/orders/${id}`, {
+        method: 'DELETE'
+      });
+      console.log(response.status)
+    }
+    sendDeleteRequest()
   }
   return (
     <article>
