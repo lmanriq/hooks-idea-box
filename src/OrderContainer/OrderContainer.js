@@ -17,6 +17,7 @@ const OrderContainer = () => {
   const orderCards = orders.map(order => {
     return (
       <OrderCard
+        key={order.id}
         {...order}
       />
     )
