@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import './OrderContainer.css';
+import OrderCard from '../OrderCard/OrderCard';
 
 const OrderContainer = () => {
   const [orders, setOrders] = useState([]);
@@ -14,14 +16,18 @@ const OrderContainer = () => {
 
   const orderCards = orders.map(order => {
     return (
-      <h2>{order.name}</h2>
+      <OrderCard
+        {...order}
+      />
     )
   })
 
   return (
     <section>
       <h1>Orders</h1>
-      {orderCards}
+      <section className="order-container">
+        {orderCards}
+      </section>
     </section>
   )
 }
