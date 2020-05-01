@@ -14,9 +14,15 @@ const OrderContainer = () => {
     fetchData()
   }, [])
 
+  const deleteOrder = id => {
+    const filtered = orders.filter(order => order.id !== id)
+    setOrders(filtered)
+  }
+
   const orderCards = orders.map(order => {
     return (
       <OrderCard
+        deleteOrder={deleteOrder}
         key={order.id}
         {...order}
       />
