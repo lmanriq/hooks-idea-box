@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./OrderForm.css";
 
-const OrderForm = () => {
+const OrderForm = props => {
   const [name, updateName] = useState("");
   const [ingredients, updateIngredients] = useState([]);
 
@@ -29,7 +29,7 @@ const OrderForm = () => {
         body: JSON.stringify(newOrder),
       })
       const data = await response.json();
-      
+      props.addOrder(data)
     }
     catch(error) {
       console.error(error.message)
@@ -77,7 +77,7 @@ const OrderForm = () => {
       <input type="text" onChange={(e) => handleNameChange(e)} value={name} />
       <div>{ingredients.join(", ") || <p>Nothing selected yet</p>}</div>
       {ingredientButtons}
-      <button onClick={(e) => this.handleSubmit(e)} disabled={isDisabled}>
+      <button onClick={(e) => handleSubmit(e)} disabled={isDisabled}>
         Submit Order
       </button>
     </form>
