@@ -14,6 +14,34 @@ const OrderForm = () => {
     updateIngredients([...ingredients, e.target.name]);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newOrder = {
+      name,
+      ingredients,
+    };
+    try {
+      const response = await fetch("http://localhost:3001/api/v1/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newOrder),
+      })
+      const data = await response.json();
+      
+    }
+    catch(error) {
+      console.error(error.message)
+    }
+    clearInputs();
+  };
+
+  const clearInputs = () => {
+    updateName("");
+    updateIngredients([]);
+  };
+
   const possibleIngredients = [
     { name: "beans ($1)", price: 1 },
     { name: "steak ($2)", price: 2 },
@@ -41,14 +69,17 @@ const OrderForm = () => {
     );
   });
 
+  const isDisabled = ingredients.length === 0 || name === "" ? true : false;
+
   return (
     <form>
       <label>Name:</label>
       <input type="text" onChange={(e) => handleNameChange(e)} value={name} />
-      <div>
-        {ingredients.join(', ') || <p>Nothing selected yet</p>}
-      </div>
+      <div>{ingredients.join(", ") || <p>Nothing selected yet</p>}</div>
       {ingredientButtons}
+      <button onClick={(e) => this.handleSubmit(e)} disabled={isDisabled}>
+        Submit Order
+      </button>
     </form>
   );
 };
